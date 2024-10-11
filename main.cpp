@@ -69,7 +69,7 @@ int main() {
          std::vector<std::string> forceInfo(4);  // Changed to string to handle unknowns
     
     for (int i = 1; i <= numForces; i++) {
-        std::cout << "For force " << i << ", enter the following (use '?' for unknown values): \n";
+        std::cout << "For force " << i << " of " <<numForces<< ", enter the following (use '?' for unknown values): \n";
         // add option to choose what point to reference
         std::cout << "x-component: ";
         std::cin >> forceInfo[0];
@@ -95,7 +95,10 @@ int main() {
     }
     forces.close();
 
-        
+    // deal with number of lines
+    std::ofstream nLines;
+    nLines.open("numLines.txt",std::ios_base::trunc);
+    nLines << numForces << std::endl << numPoints;
 
     
     return 0;

@@ -1,1 +1,1 @@
-# staticsSolver
+Solves Ch5 statics problems
