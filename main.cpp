@@ -66,39 +66,55 @@ int main() {
         std::cout << "How many forces: ";
         int numForces;
         std::cin >> numForces;
-         std::vector<std::string> forceInfo(4);  // Changed to string to handle unknowns
+        //std::vector<std::string> forceInfo(numForces,4);  // Changed to string to handle unknowns
+        std::string forceInfo[numForces][4];
     
-    for (int i = 1; i <= numForces; i++) {
+    for (int i = 0; i < numForces; i++) {
         std::cout << "For force " << i << " of " <<numForces<< ", enter the following (use '?' for unknown values): \n";
         // add option to choose what point to reference
         std::cout << "x-component: ";
-        std::cin >> forceInfo[0];
+        std::cin >> forceInfo[i][0];
         std::cout << std::endl;
         
         std::cout << "y-component: ";
-        std::cin >> forceInfo[1];
+        std::cin >> forceInfo[i][1];
         std::cout << std::endl;
 
         std::cout << "x-distance from origin: ";
-        std::cin >> forceInfo[2];
+        std::cin >> forceInfo[i][2];
         std::cout << std::endl;
 
         std::cout << "y-distance from origin: ";
-        std::cin >> forceInfo[3];
+        std::cin >> forceInfo[i][3];
         std::cout << std::endl;
 
-        // Write to the CSV file
-        forces << forceInfo[0] << "," << forceInfo[1] << "," << forceInfo[2] << "," << forceInfo[3] << "," << std::endl;
+        
 
         // Reset the vector
-        forceInfo = {"?", "?", "?", "?"};  // Initialize with '?' to show unknowns if the user wants
+        //forceInfo = {"?", "?", "?", "?"};  // Initialize with '?' to show unknowns if the user wants
+    }
+    // try random, loop through to check value does exist in csv, value using to third line of numLines
+    int unknownSignifier = rand() % 1000; // this is risky, fix this pls or else results will sometimes be bad
+
+    for (int i = 0; i < numForces; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (forceInfo[i][j] == "?") {
+                forceInfo[i][j] = std::to_string(unknownSignifier);
+            }
+        }
+    }
+
+
+    // Write to the CSV file THIS ISNT RIGHT RN
+    for (int i = 0; i < numForces; i++) {
+        forces << forceInfo[i][0] << "," << forceInfo[i][1] << "," << forceInfo[i][2] << "," << forceInfo[i][3] << "," << std::endl;
     }
     forces.close();
 
     // deal with number of lines
     std::ofstream nLines;
     nLines.open("numLines.txt",std::ios_base::trunc);
-    nLines << numForces << std::endl << numPoints;
+    nLines << numForces << std::endl << numPoints << std::endl << unknownSignifier;
 
     
     return 0;

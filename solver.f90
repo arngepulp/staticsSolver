@@ -56,8 +56,9 @@ program solver
     end do
 
     ! testing if file was read properly
-    print*, forceArray
+    
     ! solve somehow numerical methods and stuff probably set unknowns as idk how to deal with those but x system of equation solving
+    ! unknown will be values numLine.txt 3rd line
 endprogram solver
 
 subroutine get_value(line, value)
